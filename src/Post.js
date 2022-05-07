@@ -1,3 +1,6 @@
+import React from "react"
+;
+
 function PostUser (props){
 return (
     <div class="usuario">
@@ -6,41 +9,37 @@ return (
     </div>
 )
 }
-function PostContent (props){
-    return (
-        <div class="conteudo">
-            <img src= {props.contentImg}/>
-        </div>
-    )
-}
-function PostLikes (props){
-return (
-    <div class="curtidas">
-        <img src={props.likeImg} />
-        <div class="texto">
-            Curtido por <strong>{props.likeName}</strong> e <strong>outras {props.likeNumbers} pessoas</strong>
-        </div>
-    </div>
-)
-}
-
-
+let iconName = "heart-outline"
+{/* <ion-icon name="heart-sharp"></ion-icon> */}
 export default function Post ({userImg, userName, contentImg, likeName, likeNumbers, likeImg}){
+    const [like, setLike] = React.useState(iconName);
+    function likePostIMG(like){
+        if (like === "heart-outline") {
+            setLike("heart-sharp")
+        } 
+    }
+    function likePost(like){
+        likePostIMG(like)
+        if(like !=="heart-outline" ) {
+            setLike ("heart-outline")
+        }
+    }
+    
     return (
         <div class="post">
             <div class="topo">
-                <PostUser userImg= {userImg} userName ={userName}/>
+                <PostUser userImg= {userImg} userName ={userName} />
                 <div class="acoes">
                 <ion-icon name="ellipsis-horizontal"></ion-icon>
                 </div>
             </div>
-
-            <PostContent contentImg={contentImg} />  
-
+            <div class="conteudo" onClick={()=>likePostIMG(like)}>
+                <img src= {contentImg}/>
+            </div>
             <div class="fundo">
                 <div class="acoes">
               <div>
-                <ion-icon name="heart-outline"></ion-icon>
+                <ion-icon class={like} name={like} onClick={()=>likePost(like)}></ion-icon>
                 <ion-icon name="chatbubble-outline"></ion-icon>
                 <ion-icon name="paper-plane-outline"></ion-icon>
               </div>
@@ -48,7 +47,12 @@ export default function Post ({userImg, userName, contentImg, likeName, likeNumb
                 <ion-icon name="bookmark-outline"></ion-icon>
               </div>
                 </div>
-                <PostLikes likeName={likeName} likeNumbers={likeNumbers} likeImg={likeImg}/>
+                <div class="curtidas">
+                    <img src={likeImg} />
+                    <div class="texto">
+                        Curtido por <strong>{likeName}</strong> e <strong>outras {likeNumbers} pessoas</strong>
+                    </div>
+                </div>
             </div>
         </div> 
     )
