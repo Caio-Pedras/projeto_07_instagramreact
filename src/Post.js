@@ -10,17 +10,17 @@ return (
 )
 }
 let iconName = "heart-outline"
-{/* <ion-icon name="heart-sharp"></ion-icon> */}
+
 export default function Post ({userImg, userName, contentImg, likeName, likeNumbers, likeImg}){
     const [like, setLike] = React.useState(iconName);
     function likePostIMG(like){
         if (like === "heart-outline") {
-            setLike("heart-sharp")
+            setLike("heart")
         } 
     }
     function likePost(like){
         likePostIMG(like)
-        if(like !=="heart-outline" ) {
+        if(like !=="heart-outline") {
             setLike ("heart-outline")
         }
     }
